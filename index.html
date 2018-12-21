@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Document</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Ubuntu+Condensed');
+      * {
+        font-family: 'Ubuntu Condensed';
+        color: #567;
+        outline: 0;
+        box-sizing: border-box;
+      }
+
+      nav {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        background-image: linear-gradient(#f1f1f1, #bdbdbd);
+        font-size: 14px;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      li {
+        padding: 8px 20px;
+        color: #353535;
+        border-right: 1px solid #b5b5b5;
+        cursor: pointer;
+        font-size: 13px;
+      }
+
+      li:hover {
+        background: #d8d8d8;
+      }
+
+      .hide {
+        display: none;
+      }
+
+      input {
+        padding: 7px 10px;
+        margin-top: 10px;
+        border-radius: 16px;
+        border: 1px solid gainsboro;
+        box-shadow: 0px 1px 2px gainsboro inset;
+        font-size: 12px;
+        transition: all .3s;
+        width: 100px;
+      }
+
+      input:focus {
+        width: 100%;
+      }
+
+      #loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        background: #ffffffe8;
+        border-radius: 10px;
+        box-shadow: 0 1px 4px grey;
+        width: 100px;
+      }
+
+      #list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 10px;
+        border-top: 1px dashed #eaeaea;
+        padding-top: 10px;
+      }
+
+      article {
+        display: flex;
+        flex-direction: column;
+        font-size: 12px;
+        justify-content: flex-start;
+        padding: 12px;
+        border-radius: 7px;
+        margin: 0 5px 10px;
+        box-shadow: 0 1px 2px 1px #e2e2e2;
+        align-items: center;
+        max-width: 100px;
+        text-align: center;
+        transition: all .3s;
+      }
+
+      article:hover {
+        background: #ececec;
+        color: #456;
+        box-shadow: 0 1px 2px 1px #cacaca;
+      }
+
+      article img {
+        width: 64px;
+        border-radius: 50%;
+        background: #eaeaea;
+        height: 64px;
+        box-shadow: 0 0 0 1px white;
+      }
+
+      span {
+        color: inherit;
+      }
+
+      #popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000000db;
+        display: none;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #popup.show {
+        display: flex;
+      }
+
+    </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li onclick="setPage('home')">Home</li>
+      <li onclick="setPage('contacts')">Contacts</li>
+      <li onclick="setPage('artists')">Artists</li>
+    </ul>
+  </nav>
+
+  <section id="home">
+    <h1>Home Page</h1>
+    <img src="https://goo.gl/PjiMCB" width="300" />
+  </section>
+
+  <section id="contacts" class="hide">
+    <h1>Contacts Page</h1>
+    <img src="https://goo.gl/wNpaf6" width="300" />
+  </section>
+
+  <section id="artists" class="hide">
+    <input type="text" oninput="search(this.value)" />
+    <div id="list"></div>
+  </section>
+
+  <div id="popup" onclick="popup.hide()"></div>
+
+  <img src="https://goo.gl/HkXB9H" class="hide" id="loader" />
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    var setPage = function(page) {
+      $('section').addClass('hide');
+      $('#' + page).removeClass('hide');
+    }
+
+    var render = function(items) {
+      var html = '';
+      items.forEach(function(el) {
+        html +=
+          `<article>
+    	<img src="${el.image[2]['#text']}" onclick="popup.show('${el.name}')" />
+      <a href="https://www.last.fm/ru/music/${el.name}" target="_blank">${el.name}</a>
+    </article>`;
+      });
+      $('#list').html(html);
+    };
+
+    var search = function(str) {
+
+      if (!str.length) {
+        return false
+      }
+
+      $('#loader').removeClass('hide');
+
+      var url = 'https://ws.audioscrobbler.com/2.0/';
+      var params = {
+        limit: 12,
+        artist: str,
+        method: 'artist.search',
+        api_key: '23caa86333d2cb2055fa82129802780a',
+        format: 'json'
+      };
+
+      $.getJSON(url, params)
+        .then(function(data) {
+          render(data.results.artistmatches.artist);
+          $('#loader').addClass('hide');
+        });
+    }
+
+    var popup = {
+      show: function(artist) {
+        var url = "https://www.youtube.com/embed?listType=search&video&list=" + artist;
+        var html = `<iframe src="${url}" width="420" height="280" frameborder="0"></iframe>`;
+        $('#popup').html(html).addClass('show');
+      },
+      hide: function() {
+        $('#popup').html('').removeClass('show');
+      }
+    }
+
+  </script>
+</body>
+
+</html>
