@@ -45,6 +45,7 @@ li {
   font-size: 13px;
 }
 
+li.active,
 li:hover {
   background: #d8d8d8;
 }
@@ -106,7 +107,6 @@ article img {
   border-radius: 50%;
   background: #eaeaea;
   height: 64px;
-  box-shadow: 0 0 0 1px white;
 }
 
 span {

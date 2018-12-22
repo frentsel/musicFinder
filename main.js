@@ -1,6 +1,8 @@
-var setPage = function(page) {
+var setPage = function(page, obj) {
   $('section').addClass('hide');
+  $('li').removeClass('active');
   $('#' + page).removeClass('hide');
+  $(obj).addClass('active');
 }
 
 var render = function(items) {
