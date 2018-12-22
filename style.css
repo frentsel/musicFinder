@@ -101,12 +101,6 @@ article {
   text-align: center;
 }
 
-article:hover {
-  background: #ececec;
-  color: #456;
-  box-shadow: 0 1px 2px 1px #cacaca;
-}
-
 article img {
   width: 64px;
   border-radius: 50%;
