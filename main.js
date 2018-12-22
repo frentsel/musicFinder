@@ -45,7 +45,7 @@ var popup = {
   show: function(artist) {
     var width = window.innerWidth > 360 ? 360 : window.innerWidth * .9;
     var url = "https://www.youtube.com/embed?listType=search&video&list=" + artist;
-    var html = `<iframe src="${url}" width="${width}" height="220" frameborder="0"></iframe>`;
+    var html = `<iframe src="${url}" width="${width}" height="260" frameborder="0"></iframe>`;
     $('#popup').html(html).addClass('show');
   },
   hide: function() {
