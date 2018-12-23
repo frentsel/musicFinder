@@ -9,6 +9,7 @@
 
 html {
   height: 100%;
+  background-image: linear-gradient(#fff, #e8e8e8);
 }
 
 body {
@@ -112,19 +113,22 @@ article img {
 
 article a {
   position: absolute;
-  display: flex;
+  display: block;
   width: 100%;
+  line-height: 20px;
   height: 20px;
   font-size: 12px;
   bottom: 1px;
   left: 0;
   text-shadow: 0 0 1px black;
-  background: #777777cc;
-  justify-content: center;
-  align-items: center;
+  background: #757575c4;
   text-decoration: none;
   color: white;
   transition: all .2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 4px;
 }
 
 article a:active,
