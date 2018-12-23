@@ -10,7 +10,7 @@ var render = function(items) {
   items.forEach(function(el) {
     html +=
       `<article>
-        <img src="${el.image[2]['#text']}" onclick="popup.show('${el.name}')" />
+        <img src="${el.image[3]['#text']}" onclick="popup.show('${el.name}')" />
         <a href="https://www.last.fm/ru/music/${el.name}" target="_blank">${el.name}</a>
       </article>`;
   });
