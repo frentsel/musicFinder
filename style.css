@@ -117,7 +117,7 @@ article a {
   line-height: 20px;
   height: 20px;
   font-size: 12px;
-  bottom: 1px;
+  bottom: 0;
   left: 0;
   text-shadow: 0 0 1px black;
   background: #757575c4;
